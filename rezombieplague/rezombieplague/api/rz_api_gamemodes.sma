@@ -37,7 +37,7 @@ enum _:Forwards
 {
 	Fw_Return,
 	Fw_GameModes_Change_Pre,
-	Fw_GameModes_Change_Post,
+	Fw_GameModes_Change_Post
 
 }; new gForwards[Forwards];
 
@@ -72,6 +72,7 @@ ChangeGameMode(gameMode, bool:force = false)
 	}
 
 	ExecuteForward(gForwards[Fw_GameModes_Change_Pre], gForwards[Fw_Return], gameMode, ArraySize(alivesArray), force);
+	server_print("WHAT THE SIGMA");
 
 	if (gForwards[Fw_Return] >= RZ_SUPERCEDE)
 	{
@@ -98,6 +99,7 @@ public plugin_natives()
 	register_native("rz_gamemodes_size", "@native_gamemodes_size");
 	register_native("rz_gamemodes_change", "@native_gamemodes_change");
 	register_native("rz_gamemodes_get_status", "@native_gamemodes_get_status");
+	register_native("rz_gamemodes_check_status", "@native_gamemodes_check_status");
 }
 
 @native_gamemode_create(plugin, argc)
@@ -317,7 +319,7 @@ public plugin_natives()
 
 	RZ_CHECK_MODULE_VALID_INDEX(index, false)
 
-	return ChangeGameMode(gameMode);
+	return ChangeGameMode(gameMode, true);
 }
 
 @native_gamemodes_get_status(plugin, argc)
@@ -331,4 +333,33 @@ public plugin_natives()
 
 	ExecuteForward(gForwards[Fw_GameModes_Change_Pre], gForwards[Fw_Return], gameMode, rz_game_get_alivesnum(), any:get_param(arg_force));
 	return gForwards[Fw_Return];
+}
+
+@native_gamemodes_check_status(plugin, argc)
+{
+	enum { arg_game_mode = 1, arg_force, arg_random_result };
+
+	new gameMode = get_param(arg_game_mode);
+	new alivesNum = rz_game_get_alivesnum();
+	new forced = get_param(arg_force);
+	new iRandomizerResult = get_param(arg_random_result);
+	new index = rz_module_get_valid_index(g_iModule, gameMode);
+
+	RZ_CHECK_MODULE_VALID_INDEX(index, RZ_BREAK)
+
+	ArrayGetArray(g_aGameModes, index, gGameModeData);
+	if (alivesNum < gGameModeData[GameMode_MinAlives])
+	{
+		return RZ_SUPERCEDE;
+	}
+
+	if (!forced)
+	{
+		if (gGameModes[RZ_GAMEMODES_LAST] == gameMode)
+			return RZ_SUPERCEDE;
+		if (iRandomizerResult != 1)
+			return RZ_SUPERCEDE;
+	}
+
+	return RZ_CONTINUE;
 }

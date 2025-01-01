@@ -32,10 +32,10 @@ public plugin_cfg()
 
 public rz_gamemodes_change_pre(gameMode, alivesNum, bool:force)
 {
-	//if (alivesNum < GAMEMODE_LAUNCH_MINALIVES)
-	//	return RZ_SUPERCEDE;
+	new chance = rz_gamemode_get(gameMode, RZ_GAMEMODE_CHANCE);
+	new iRandomizerResult = random_num(1, chance);
 
-	server_print("gamemode %d %d %d", gameMode, alivesNum, force);
+	server_print("[gamemode_change_pre] ID : %d | Alive players : %d | FORCED? : %d | RANDOM: %d", gameMode, alivesNum, force, iRandomizerResult);
 	if (alivesNum < rz_gamemode_get(gameMode, RZ_GAMEMODE_MIN_ALIVES))
 		return RZ_SUPERCEDE;
 
@@ -44,11 +44,9 @@ public rz_gamemodes_change_pre(gameMode, alivesNum, bool:force)
 		if (rz_gamemodes_get(RZ_GAMEMODES_LAST) == gameMode)
 			return RZ_SUPERCEDE;
 
-		new chance = rz_gamemode_get(gameMode, RZ_GAMEMODE_CHANCE);
-
 		if (chance)
 		{
-			if (random_num(1, chance) != 1)
+			if (iRandomizerResult != 1)
 				return RZ_SUPERCEDE;
 		}
 	}
@@ -58,7 +56,7 @@ public rz_gamemodes_change_pre(gameMode, alivesNum, bool:force)
 
 public rz_gamemodes_change_post(gameMode, Array:alivesArray)
 {
-	server_print("gamemode started");
+	server_print("[gamemode_change_post] Gamemode %d have started", gameMode);
 	rz_gamemodes_set(RZ_GAMEMODES_CURRENT, gameMode);
 	rz_gamemodes_set(RZ_GAMEMODES_LAST, gameMode);
 
