@@ -1,0 +1,3 @@
+In order for the gamemodes to work properly, set the "chance" in the JSONs for every single one as if 1 to X chance, where "X" is the probability set to your likes.
+The last gamemode specified in the plugins-rezombieplague.ini should ALWAYS have its "chance" set to "1". A direct proper out-of-the-box implementation of this "hack" is on its way.
+And please don't touch the order of gamemodes in the plugins list unless you're absolutely sure of what you're doing. Always back up your changes just in case, this is still unstable.
