@@ -22,6 +22,6 @@ ReHLDS, ReGameDLL, Metamod-r (or Metamod-P), AMX Mod X, ReAPI. **Use the latest 
 
 ## Acknowledgments
 Thanks to projects: ReGameDLL_CS, AMX Mod X, ReAPI<br/>
-Thanks to people: wellasgood, Nvoymax, Alex, DANDY, steelzzz, Droads, Nordic Warrior, kostikovkirill, CaHTuK, Bodom, DimaS, bristol, wopox1337, nrjdemon, PurposeLess and others.<br/>
+Thanks to people: fl0werD, wellasgood, Nvoymax, Alex, DANDY, steelzzz, Droads, Nordic Warrior, kostikovkirill, CaHTuK, Bodom, DimaS, bristol, wopox1337, nrjdemon, PurposeLess and others.<br/>
 Thanks to the website: dev-cs.ru<br/>
 
