@@ -93,7 +93,7 @@ GameModesMenu_Show(id, page = 0)
 
 			rz_gamemode_get(index, RZ_GAMEMODE_NAME, name, charsmax(name));
 
-			if (rz_gamemodes_check_status(index, true) == RZ_CONTINUE)
+			if (rz_gamemodes_check_status(index, _, true) == RZ_CONTINUE)
 			{
 				add_formatex("\r%d. \w%l^n", item + 1, name);
 				keys |= (1<<item);
@@ -144,7 +144,7 @@ GameModesMenu_Show(id, page = 0)
 		{
 			new gameMode = ArrayGetCell(g_aMenuItems[id], g_iMenuPage[id] * GAMEMODES_MAX_PAGE_ITEMS + key);
 
-			if (rz_gamemodes_check_status(gameMode, true) != RZ_CONTINUE)
+			if (rz_gamemodes_check_status(gameMode, rz_game_get_alivesnum(), true) != RZ_CONTINUE)
 				return PLUGIN_HANDLED;
 
 			rz_gamemodes_change(gameMode);

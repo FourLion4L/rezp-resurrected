@@ -32,31 +32,14 @@ public plugin_cfg()
 
 public rz_gamemodes_change_pre(gameMode, alivesNum, bool:force)
 {
-	new chance = rz_gamemode_get(gameMode, RZ_GAMEMODE_CHANCE);
-	new iRandomizerResult = random_num(1, chance);
-
-	server_print("[gamemode_change_pre] ID : %d | Alive players : %d | FORCED? : %d | RANDOM: %d", gameMode, alivesNum, force, iRandomizerResult);
-	if (alivesNum < rz_gamemode_get(gameMode, RZ_GAMEMODE_MIN_ALIVES))
-		return RZ_SUPERCEDE;
-
-	if (!force)
-	{
-		if (rz_gamemodes_get(RZ_GAMEMODES_LAST) == gameMode)
-			return RZ_SUPERCEDE;
-
-		if (chance)
-		{
-			if (iRandomizerResult != 1)
-				return RZ_SUPERCEDE;
-		}
-	}
+	server_print("[gamemodes_change_pre] ID : %d | Alive players : %d | FORCED? : %d", gameMode, alivesNum, force);
 
 	return RZ_CONTINUE;
 }
 
 public rz_gamemodes_change_post(gameMode, Array:alivesArray)
 {
-	server_print("[gamemode_change_post] Gamemode %d have started", gameMode);
+	server_print("[gamemodes_change_post] Gamemode %d have started", gameMode);
 	rz_gamemodes_set(RZ_GAMEMODES_CURRENT, gameMode);
 	rz_gamemodes_set(RZ_GAMEMODES_LAST, gameMode);
 
@@ -110,7 +93,7 @@ public rz_gamemodes_change_post(gameMode, Array:alivesArray)
 
 	if (gameMode)
 	{
-		if (rz_gamemodes_get_status(gameMode, true) == RZ_CONTINUE)
+		if (rz_gamemodes_check_status(gameMode, _, _, true) == RZ_CONTINUE)
 			gameMode = 0;
 	}
 
@@ -122,7 +105,10 @@ public rz_gamemodes_change_post(gameMode, Array:alivesArray)
 
 		for (new i = start; i < end; i++)
 		{
-			if (rz_gamemodes_get_status(i) != RZ_CONTINUE)
+			// MARK: random moved here
+			new iRandom = random_num(1, rz_gamemode_get(i, RZ_GAMEMODE_CHANCE));
+			server_print("[Gamemodes Roll(OnRoundFreezeEnd_Pre)] gameMode: %d | random: %d", i, iRandom);
+			if (rz_gamemodes_check_status(i, _, _, iRandom) != RZ_CONTINUE)
 				continue;
 
 			//ArrayPushCell(gameModes, gameMode);
@@ -139,7 +125,10 @@ public rz_gamemodes_change_post(gameMode, Array:alivesArray)
 	}
 
 	if (!gameMode)
+	{
 		gameMode = rz_gamemodes_get(RZ_GAMEMODES_DEFAULT);
-	
+		server_print("[Gamemodes Roll(OnRoundFreezeEnd_Pre)] No gamemodes won in the roll, picking default one...");
+	}
+
 	rz_gamemodes_change(gameMode);
 }

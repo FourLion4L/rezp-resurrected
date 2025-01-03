@@ -45,8 +45,7 @@ native rz_gamemodes_start();
 native rz_gamemodes_find(const handle[]);
 native rz_gamemodes_size();
 native rz_gamemodes_change(gameMode);
-native rz_gamemodes_get_status(gameMode, bool:force = false);
-native rz_gamemodes_check_status(gameMode, alivesNum, iRandomizerResult = 1);
+native rz_gamemodes_check_status(gameMode, alivesNum = 0, bool:force = false, iRandomizerResult = 1);
 
 forward rz_gamemodes_change_pre(gameMode, alivesNum, bool:force);
 forward rz_gamemodes_change_post(gameMode, Array:alivesArray);

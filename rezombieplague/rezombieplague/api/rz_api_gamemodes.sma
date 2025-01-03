@@ -71,8 +71,8 @@ ChangeGameMode(gameMode, bool:force = false)
 		ArrayPushCell(alivesArray, i);
 	}
 
+	// gamemodes_change_pre is left here for API purposes, for overridement by other plugins. Otherwise it's not needed because of rz_gamemodes_check_status.
 	ExecuteForward(gForwards[Fw_GameModes_Change_Pre], gForwards[Fw_Return], gameMode, ArraySize(alivesArray), force);
-	server_print("WHAT THE SIGMA");
 
 	if (gForwards[Fw_Return] >= RZ_SUPERCEDE)
 	{
@@ -98,7 +98,6 @@ public plugin_natives()
 	register_native("rz_gamemodes_find", "@native_gamemodes_find");
 	register_native("rz_gamemodes_size", "@native_gamemodes_size");
 	register_native("rz_gamemodes_change", "@native_gamemodes_change");
-	register_native("rz_gamemodes_get_status", "@native_gamemodes_get_status");
 	register_native("rz_gamemodes_check_status", "@native_gamemodes_check_status");
 }
 
@@ -319,28 +318,15 @@ public plugin_natives()
 
 	RZ_CHECK_MODULE_VALID_INDEX(index, false)
 
-	return ChangeGameMode(gameMode, true);
-}
-
-@native_gamemodes_get_status(plugin, argc)
-{
-	enum { arg_game_mode = 1, arg_force };
-
-	new gameMode = get_param(arg_game_mode);
-	new index = rz_module_get_valid_index(g_iModule, gameMode);
-
-	RZ_CHECK_MODULE_VALID_INDEX(index, RZ_BREAK)
-
-	ExecuteForward(gForwards[Fw_GameModes_Change_Pre], gForwards[Fw_Return], gameMode, rz_game_get_alivesnum(), any:get_param(arg_force));
-	return gForwards[Fw_Return];
+	return ChangeGameMode(gameMode);
 }
 
 @native_gamemodes_check_status(plugin, argc)
 {
-	enum { arg_game_mode = 1, arg_force, arg_random_result };
+	enum { arg_game_mode = 1, arg_alivesnum, arg_force, arg_random_result };
 
 	new gameMode = get_param(arg_game_mode);
-	new alivesNum = rz_game_get_alivesnum();
+	new alivesNum = get_param(arg_alivesnum); if (!alivesNum) rz_game_get_alivesnum();
 	new forced = get_param(arg_force);
 	new iRandomizerResult = get_param(arg_random_result);
 	new index = rz_module_get_valid_index(g_iModule, gameMode);
