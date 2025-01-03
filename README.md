@@ -15,7 +15,7 @@ ReZombiePlague: Resurrected is a fork of ReZombiePlague, which is the result of 
 ‒ Now you can immediately start any registered gamemode via Admin-Menu.
 
 ## WIKI (heavily WIP)
-This repository has a Wiki! There you'll find API notes (duplicated from includes), minor API usage examples, building tutorial, explanations of how systems work, and other instructions. All of that for the sake of convenience and an easy start with ReZombiePlague: Resurrected!
+This repository has a [Wiki](https://github.com/FourLion4L/rezp-resurrected/wiki)! There you'll find API notes (duplicated from includes), minor API usage examples, building tutorial, explanations of how systems work, and other instructions. All of that for the sake of convenience and an easy start with ReZombiePlague: Resurrected!
 
 ## Requirements
 ReHLDS, ReGameDLL, Metamod-r (or Metamod-P), AMX Mod X, ReAPI. **Use the latest versions in order to avoid unexpected behavior**.
