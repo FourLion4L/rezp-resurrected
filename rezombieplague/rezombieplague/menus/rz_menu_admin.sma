@@ -51,7 +51,7 @@ MainMenu_Show(id)
 		keys |= MENU_KEY_2;
 	}
 	else
-		add_formatex("\d2. Start Game Mode^n");
+		add_formatex("\d2. %s^n", (warmup ? "Not available during warmup." : !gameStarted ? "Waiting for players..." : !freezePeriod ? "Game mode had already started." : ""));
 
 	if (!warmup && gameStarted && !freezePeriod)
 	{

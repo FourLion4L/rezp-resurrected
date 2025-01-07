@@ -19,6 +19,8 @@ public plugin_precache()
 
 	for (new i = 1; i <= MaxClients; i++)
 		g_aMenuItems[i] = ArrayCreate(1, 0);
+
+	rz_load_langs("common.txt");
 }
 
 public plugin_init()
@@ -147,6 +149,9 @@ GameModesMenu_Show(id, page = 0)
 			if (rz_gamemodes_check_status(gameMode, rz_game_get_alivesnum(), true) != RZ_CONTINUE)
 				return PLUGIN_HANDLED;
 
+			set_member_game(m_bFreezePeriod, false);
+			set_member_game(m_iRoundTime, rz_gamemode_get(gameMode, RZ_GAMEMODE_ROUND_TIME));
+			rz_gamemodes_set(RZ_GAMEMODES_FORCE, gameMode);
 			rz_gamemodes_change(gameMode);
 		}
 	}

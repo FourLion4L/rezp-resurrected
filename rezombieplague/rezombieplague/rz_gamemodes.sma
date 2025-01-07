@@ -90,12 +90,8 @@ public rz_gamemodes_change_post(gameMode, Array:alivesArray)
 		return;
 
 	new gameMode = rz_gamemodes_get(RZ_GAMEMODES_FORCE);
-
-	if (gameMode)
-	{
-		if (rz_gamemodes_check_status(gameMode, rz_game_get_alivesnum(), true) == RZ_CONTINUE)
-			gameMode = 0;
-	}
+	if (gameMode != 0 && rz_gamemodes_check_status(gameMode, rz_game_get_alivesnum(), true) == RZ_CONTINUE)
+		return;
 
 	if (!gameMode)
 	{

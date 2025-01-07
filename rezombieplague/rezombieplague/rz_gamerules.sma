@@ -331,6 +331,9 @@ public plugin_init()
 		if (!get_member_game(m_bGameStarted) || get_member_game(m_bRoundTerminating))
 			return;
 
+		if (rz_gamemodes_get(RZ_GAMEMODES_CURRENT) != 0)
+			return;
+
 		new timeLeft = floatround(GetRoundRemainingTimeReal());
 
 		if (timeLeft <= 0)
