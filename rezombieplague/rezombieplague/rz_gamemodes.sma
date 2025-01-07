@@ -93,7 +93,7 @@ public rz_gamemodes_change_post(gameMode, Array:alivesArray)
 
 	if (gameMode)
 	{
-		if (rz_gamemodes_check_status(gameMode, _, _, true) == RZ_CONTINUE)
+		if (rz_gamemodes_check_status(gameMode, rz_game_get_alivesnum(), true) == RZ_CONTINUE)
 			gameMode = 0;
 	}
 
@@ -108,7 +108,7 @@ public rz_gamemodes_change_post(gameMode, Array:alivesArray)
 			// MARK: random moved here
 			new iRandom = random_num(1, rz_gamemode_get(i, RZ_GAMEMODE_CHANCE));
 			server_print("[Gamemodes Roll(OnRoundFreezeEnd_Pre)] gameMode: %d | random: %d", i, iRandom);
-			if (rz_gamemodes_check_status(i, _, _, iRandom) != RZ_CONTINUE)
+			if (rz_gamemodes_check_status(i, rz_game_get_alivesnum(), _, iRandom) != RZ_CONTINUE)
 				continue;
 
 			//ArrayPushCell(gameModes, gameMode);

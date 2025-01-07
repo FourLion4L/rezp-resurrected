@@ -326,7 +326,7 @@ public plugin_natives()
 	enum { arg_game_mode = 1, arg_alivesnum, arg_force, arg_random_result };
 
 	new gameMode = get_param(arg_game_mode);
-	new alivesNum = get_param(arg_alivesnum); if (!alivesNum) rz_game_get_alivesnum();
+	new alivesNum = get_param(arg_alivesnum);
 	new forced = get_param(arg_force);
 	new iRandomizerResult = get_param(arg_random_result);
 	new index = rz_module_get_valid_index(g_iModule, gameMode);
