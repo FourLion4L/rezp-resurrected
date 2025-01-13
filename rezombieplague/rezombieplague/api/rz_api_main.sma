@@ -19,6 +19,7 @@ enum MainData
 	Main_PrepareTime,
 	Main_RoundTime,
 	Main_WarmupTime,
+	Main_DefaultGamemode,
 	bool:Main_AmmoPacksEnabled,
 	Main_AmmoPacksJoinAmount,
 
@@ -251,6 +252,10 @@ public plugin_natives()
 		{
 			return gMainData[Main_WarmupTime];
 		}
+		case RZ_MAIN_DEFAULT_GAMEMODE:
+		{
+			return gMainData[Main_DefaultGamemode];
+		}
 		case RZ_MAIN_AMMOPACKS_ENABLED:
 		{
 			return gMainData[Main_AmmoPacksEnabled];
@@ -316,6 +321,10 @@ public plugin_natives()
 		case RZ_MAIN_WARMUP_TIME:
 		{
 			gMainData[Main_WarmupTime] = get_param_byref(arg_2);
+		}
+		case RZ_MAIN_DEFAULT_GAMEMODE:
+		{
+			gMainData[Main_DefaultGamemode] = get_param_byref(arg_2);
 		}
 		case RZ_MAIN_AMMOPACKS_ENABLED:
 		{

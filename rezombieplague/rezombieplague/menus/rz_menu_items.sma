@@ -39,7 +39,7 @@ Items_Show(id, page = 0)
 {
 	if (page < 0)
 	{
-		amxclient_cmd(id, "gamemenu");
+		amxclient_cmd(id, "mainmenu");
 		return;
 	}
 
@@ -73,6 +73,7 @@ Items_Show(id, page = 0)
 
 	new account = get_member(id, m_iAccount);
 	new bool:ammoPacksEnabled = bool:rz_main_get(RZ_MAIN_AMMOPACKS_ENABLED);
+	client_print(id, print_center, "%b", ammoPacksEnabled);
 	new keys;
 	new len;
 	new index;

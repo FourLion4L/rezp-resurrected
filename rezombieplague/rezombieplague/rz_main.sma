@@ -241,6 +241,7 @@ LoadMainConfig()
 	ConfigField_Number(creating, configJson, "prepare_time", RZ_MAIN_PREPARE_TIME, 20);
 	ConfigField_Number(creating, configJson, "round_time", RZ_MAIN_ROUND_TIME, 180);
 	ConfigField_Number(creating, configJson, "warmup_time", RZ_MAIN_WARMUP_TIME, 40);
+	ConfigField_Number(creating, configJson, "default_gamemode", RZ_MAIN_DEFAULT_GAMEMODE, 1000);
 	ConfigField_AmmoPacks(creating, configJson);
 	ConfigField_UselessEntities(creating, configJson);
 

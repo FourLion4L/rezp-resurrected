@@ -97,27 +97,17 @@ public rz_gamemodes_change_post(gameMode, Array:alivesArray)
 	{
 		new start = rz_gamemodes_start();
 		new end = start + rz_gamemodes_size();
-		//new Array:gameModes = ArrayCreate(1, 0);
 
 		for (new i = start; i < end; i++)
 		{
-			// MARK: random moved here
 			new iRandom = random_num(1, rz_gamemode_get(i, RZ_GAMEMODE_CHANCE));
 			server_print("[Gamemodes Roll(OnRoundFreezeEnd_Pre)] gameMode: %d | random: %d", i, iRandom);
 			if (rz_gamemodes_check_status(i, rz_game_get_alivesnum(), _, iRandom) != RZ_CONTINUE)
 				continue;
 
-			//ArrayPushCell(gameModes, gameMode);
 			gameMode = i;
 			break;
 		}
-
-		/*gameModesNum = ArraySize(gameModes);
-
-		if (gameModesNum)
-			mode = ArrayGetCell(gameModes, random_num(0, gameModesNum - 1));
-
-		ArrayDestroy(gameModes);*/
 	}
 
 	if (!gameMode)

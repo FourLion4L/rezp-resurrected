@@ -57,6 +57,8 @@ public plugin_init()
 {
 	gForwards[Fw_GameModes_Change_Pre] = CreateMultiForward("rz_gamemodes_change_pre", ET_CONTINUE, FP_CELL, FP_CELL, FP_CELL);
 	gForwards[Fw_GameModes_Change_Post] = CreateMultiForward("rz_gamemodes_change_post", ET_IGNORE, FP_CELL, FP_CELL, FP_CELL);
+
+	gGameModes[RZ_GAMEMODES_DEFAULT] = rz_main_get(RZ_MAIN_DEFAULT_GAMEMODE);
 }
 
 ChangeGameMode(gameMode, bool:force = false)
@@ -111,8 +113,8 @@ public plugin_natives()
 
 	new id = ArrayPushArray(g_aGameModes, data) + rz_module_get_offset(g_iModule);
 
-	if (!gGameModes[RZ_GAMEMODES_DEFAULT])
-		gGameModes[RZ_GAMEMODES_DEFAULT] = id;
+	// if (!gGameModes[RZ_GAMEMODES_DEFAULT])
+	// 	gGameModes[RZ_GAMEMODES_DEFAULT] = id;
 
 	return id;
 }
