@@ -13,6 +13,8 @@ public plugin_precache()
 
 public plugin_init()
 {
+	RegisterHookChain(RH_SV_StartSound, "@SV_StartSound_Pre", false);
+
 	RegisterHookChain(RG_CBasePlayer_AddPlayerItem, "@CBasePlayer_AddPlayerItem_Post", true);
 	RegisterHookChain(RG_CBasePlayerWeapon_DefaultDeploy, "@CBasePlayerWeapon_DefaultDeploy_Pre", false);
 	RegisterHookChain(RG_CWeaponBox_SetModel, "@CWeaponBox_SetModel_Pre", false);
