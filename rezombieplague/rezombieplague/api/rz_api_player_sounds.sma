@@ -8,7 +8,7 @@
 enum _:PlayerSoundData
 {
 	PlayerSound_Handle[RZ_MAX_HANDLE_LENGTH],
-	Array:PlayerSound_SoundsBank[RZ_MAX_PAIN_SOUNDS],
+	Array:PlayerSound_SoundsBank[RZ_MAX_PLAYER_SOUNDS],
 
 }; new Array:g_aPlayerSounds;
 
@@ -43,7 +43,7 @@ public plugin_natives()
 
 	get_string(arg_handle, data[PlayerSound_Handle], charsmax(data[PlayerSound_Handle]));
 
-	for (new any:i = 0; i < RZ_MAX_PAIN_SOUNDS; i++)
+	for (new any:i = 0; i < RZ_MAX_PLAYER_SOUNDS; i++)
 		data[PlayerSound_SoundsBank][i] = ArrayCreate(RZ_MAX_RESOURCE_PATH, 0);
 
 	return ArrayPushArray(g_aPlayerSounds, data) + rz_module_get_offset(g_iModule);
@@ -85,7 +85,7 @@ public plugin_natives()
 		}
 		case RZ_PLAYER_SOUND_SOUNDS_BANK:
 		{
-			new RZPainSound:painSound = any:get_param_byref(arg_3);
+			new RZPlayerSoundType:painSound = any:get_param_byref(arg_3);
 			
 			return any:gPlayerSoundData[PlayerSound_SoundsBank][painSound];
 		}
@@ -120,7 +120,7 @@ public plugin_natives()
 		}
 		case RZ_PLAYER_SOUND_SOUNDS_BANK:
 		{
-			new RZPainSound:painSound = any:get_param_byref(arg_element);
+			new RZPlayerSoundType:painSound = any:get_param_byref(arg_element);
 
 			gPlayerSoundData[PlayerSound_SoundsBank][painSound] = any:get_param_byref(arg_3);
 		}
@@ -171,7 +171,7 @@ public plugin_natives()
 
 	RZ_CHECK_MODULE_VALID_INDEX(index, false)
 
-	new RZPainSound:painSound = any:get_param(arg_pain_sound);
+	new RZPlayerSoundType:painSound = any:get_param(arg_pain_sound);
 	new sample[RZ_MAX_RESOURCE_PATH];
 	get_string(arg_sample, sample, charsmax(sample));
 
