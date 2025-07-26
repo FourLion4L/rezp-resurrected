@@ -10,13 +10,13 @@ public plugin_precache()
 	new class;
 	RZ_CHECK_CLASS_EXISTS(class, "class_zombie");
 
-	new const handle[] = "subclass_zombie_jumper";
+	new const handle[] = "zombie_jumper";
 
 	new subclass = rz_subclass_create(handle, class);
 	new props = rz_playerprops_create(handle);
 	
-	rz_subclass_set(subclass, RZ_SUBCLASS_NAME, "RZ_SUBZOMBIE_JUMPER_NAME");
-	rz_subclass_set(subclass, RZ_SUBCLASS_DESC, "RZ_SUBZOMBIE_JUMPER_DESC");
+	rz_subclass_set(subclass, RZ_SUBCLASS_NAME, "RZ_ZOMBIE_JUMPER_NAME");
+	rz_subclass_set(subclass, RZ_SUBCLASS_DESC, "RZ_ZOMBIE_JUMPER_DESC");
 	rz_subclass_set(subclass, RZ_SUBCLASS_PROPS, props);
 
 	rz_playerprops_set(props, RZ_PLAYER_PROPS_HEALTH, 1000.0);

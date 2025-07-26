@@ -16,14 +16,14 @@ public plugin_precache()
 
 	precache_sound(ARMOR_HIT_SOUND);
 
-	new class = g_iClass_Zombie = rz_class_create("zombie", TEAM_TERRORIST);
+	new class = g_iClass_Zombie = rz_class_create("class_zombie", TEAM_TERRORIST);
 	new props = rz_class_get(class, RZ_CLASS_PROPS);
 	new model = rz_class_get(class, RZ_CLASS_MODEL);
 	new sound = rz_class_get(class, RZ_CLASS_SOUND);
 	new nightVision = rz_class_get(class, RZ_CLASS_NIGHTVISION);
 	new knife = rz_knife_create("knife_zombie");
 
-	rz_class_set(class, RZ_CLASS_NAME, "ZOMBIE");
+	rz_class_set(class, RZ_CLASS_NAME, "RZ_ZOMBIE");
 	rz_class_set(class, RZ_CLASS_HUD_COLOR, { 250, 250, 10 });
 	rz_class_set(class, RZ_CLASS_KNIFE, knife);
 
