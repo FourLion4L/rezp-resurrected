@@ -4,6 +4,8 @@
 
 #define _rezp_util_included
 
+#include <util_paths>
+
 /**
  * You have to create len and text[] variables before call add_formatex.
  */

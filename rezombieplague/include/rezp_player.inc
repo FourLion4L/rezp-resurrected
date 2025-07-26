@@ -119,21 +119,30 @@ native rz_playermodel_player_change(id, playerModel, bool:preSpawn = false);
 
 
 
-enum RZPainSound
+//previously called RZPainSound
+enum RZPlayerSoundType
 {
-	RZ_PAIN_SOUND_NONE = -1,
-	RZ_PAIN_SOUND_BHIT_HELMET, // [RZ_MAX_RESOURCE_PATH]
-	RZ_PAIN_SOUND_HEADSHOT, // [RZ_MAX_RESOURCE_PATH]
-	RZ_PAIN_SOUND_BHIT_KEVLAR, // [RZ_MAX_RESOURCE_PATH]
-	RZ_PAIN_SOUND_BHIT_FLESH, // [RZ_MAX_RESOURCE_PATH]
-	RZ_PAIN_SOUND_DEATH, // [RZ_MAX_RESOURCE_PATH]
-	RZ_MAX_PAIN_SOUNDS,
+	RZ_PLAYER_SOUND_NONE = -1,
+	RZ_PLAYER_SOUND_PAIN_BHIT_HELMET, // [RZ_MAX_RESOURCE_PATH]
+	RZ_PLAYER_SOUND_PAIN_HEADSHOT, // [RZ_MAX_RESOURCE_PATH]
+	RZ_PLAYER_SOUND_PAIN_BHIT_KEVLAR, // [RZ_MAX_RESOURCE_PATH]
+	RZ_PLAYER_SOUND_PAIN_BHIT_FLESH, // [RZ_MAX_RESOURCE_PATH]
+	RZ_PLAYER_SOUND_DEATH, // [RZ_MAX_RESOURCE_PATH]
+	RZ_PLAYER_SOUND_DEATH_RARE, // [RZ_MAX_RESOURCE_PATH]
+	RZ_PLAYER_SOUND_IDLE, // [RZ_MAX_RESOURCE_PATH]
+	RZ_PLAYER_SOUND_IDLE_RARE, // [RZ_MAX_RESOURCE_PATH]
+	RZ_PLAYER_SOUND_APPEAR, // [RZ_MAX_RESOURCE_PATH]
+	RZ_PLAYER_SOUND_APPEAR_RARE, // [RZ_MAX_RESOURCE_PATH]
+	RZ_PLAYER_SOUND_ABILITY1, // [RZ_MAX_RESOURCE_PATH]
+	RZ_PLAYER_SOUND_ABILITY2, // [RZ_MAX_RESOURCE_PATH]
+	RZ_PLAYER_SOUND_HEAL, // [RZ_MAX_RESOURCE_PATH]
+	RZ_MAX_PLAYER_SOUNDS
 };
 
 enum RZPlayerSoundProp
 {
 	RZ_PLAYER_SOUND_HANDLE, // [RZ_MAX_HANDLE_LENGTH]
-	RZ_PLAYER_SOUND_SOUNDS_BANK, // [MAX_PAIN_SOUNDS], Array
+	RZ_PLAYER_SOUND_SOUNDS_BANK, // [MAX_PLAYER_SOUNDS], Array
 };
 
 native rz_playersound_create(const handle[]);
@@ -143,7 +152,7 @@ native rz_playersound_set(playerSound, RZPlayerSoundProp:prop, any:...);
 native rz_playersound_find(const handle[]);
 native rz_playersound_valid(playerSound);
 
-native rz_playersound_add(playerSound, RZPainSound:painSound, const sample[]);
+native rz_playersound_add(playerSound, RZPlayerSoundType:soundType, const sample[]);
 
 
 
