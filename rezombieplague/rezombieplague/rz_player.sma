@@ -6,6 +6,7 @@
 #include <rezp>
 #include <util_messages>
 #include <util_tempentities>
+#include <util_paths>
 
 new const RESPAWN_TIME = 3;
 new const INFECTION_DEATHMSG[] = "teammate";
@@ -247,27 +248,27 @@ public rz_nightvisions_change_post(id, player, bool:enabled)
 
 	if (rz_playersound_valid(playerSound))
 	{
-		new RZPainSound:painSound = RZ_PAIN_SOUND_NONE;
+		new RZPlayerSoundType:painSound = RZ_PLAYER_SOUND_NONE;
 
 		if (sample[7] == 'b' && sample[8] == 'h' && sample[9] == 'i' && sample[10] == 't')
 		{
 			switch (sample[12])
 			{
-				case 'h': painSound = RZ_PAIN_SOUND_BHIT_HELMET;
-				case 'k': painSound = RZ_PAIN_SOUND_BHIT_KEVLAR;
-				case 'f': painSound = RZ_PAIN_SOUND_BHIT_FLESH;
+				case 'h': painSound = RZ_PLAYER_SOUND_PAIN_BHIT_HELMET;
+				case 'k': painSound = RZ_PLAYER_SOUND_PAIN_BHIT_KEVLAR;
+				case 'f': painSound = RZ_PLAYER_SOUND_PAIN_BHIT_FLESH;
 			}
 		}
 		else if (sample[7] == 'h' && sample[8] == 'e' && sample[9] == 'a')
 		{
-			painSound = RZ_PAIN_SOUND_HEADSHOT;
+			painSound = RZ_PLAYER_SOUND_PAIN_HEADSHOT;
 		}
 		else if (sample[7] == 'd' && ((sample[8] == 'i' && sample[9] == 'e') || (sample[8] == 'e' && sample[9] == 'a')))
 		{
-			painSound = RZ_PAIN_SOUND_DEATH;
+			painSound = RZ_PLAYER_SOUND_DEATH;
 		}
 
-		if (painSound != RZ_PAIN_SOUND_NONE)
+		if (painSound != RZ_PLAYER_SOUND_NONE)
 		{
 			new Array:sounds = rz_playersound_get(playerSound, RZ_PLAYER_SOUND_SOUNDS_BANK, painSound);
 			new soundsNum = ArraySize(sounds);
