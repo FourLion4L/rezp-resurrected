@@ -3,6 +3,8 @@
 #include <amxmodx>
 #include <reapi>
 #include <rezp>
+#include <rezp_player>
+#include <util_paths>
 
 new const ARMOR_HIT_SOUND[] = "player/bhit_helmet-1.wav";
 
@@ -10,18 +12,18 @@ new g_iClass_Zombie;
 
 public plugin_precache()
 {
-	register_plugin("[ReZP] Class: Zombie", REZP_VERSION_STR, "fl0wer");
+	register_plugin("[ReZP] Class: Zombie", REZP_VERSION_STR, "FourLion");
 
 	precache_sound(ARMOR_HIT_SOUND);
 
-	new class = g_iClass_Zombie = rz_class_create("class_zombie", TEAM_TERRORIST);
+	new class = g_iClass_Zombie = rz_class_create("zombie", TEAM_TERRORIST);
 	new props = rz_class_get(class, RZ_CLASS_PROPS);
 	new model = rz_class_get(class, RZ_CLASS_MODEL);
 	new sound = rz_class_get(class, RZ_CLASS_SOUND);
 	new nightVision = rz_class_get(class, RZ_CLASS_NIGHTVISION);
 	new knife = rz_knife_create("knife_zombie");
 
-	rz_class_set(class, RZ_CLASS_NAME, "RZ_ZOMBIE");
+	rz_class_set(class, RZ_CLASS_NAME, "ZOMBIE");
 	rz_class_set(class, RZ_CLASS_HUD_COLOR, { 250, 250, 10 });
 	rz_class_set(class, RZ_CLASS_KNIFE, knife);
 
@@ -31,26 +33,23 @@ public plugin_precache()
 
 	rz_playermodel_add(model, "zombie_source", false);
 
-	rz_playersound_add(sound, RZ_PAIN_SOUND_BHIT_FLESH, "zombie_plague/zombie_pain1.wav");
-	rz_playersound_add(sound, RZ_PAIN_SOUND_BHIT_FLESH, "zombie_plague/zombie_pain2.wav");
-	rz_playersound_add(sound, RZ_PAIN_SOUND_BHIT_FLESH, "zombie_plague/zombie_pain3.wav");
-	rz_playersound_add(sound, RZ_PAIN_SOUND_BHIT_FLESH, "zombie_plague/zombie_pain4.wav");
-	rz_playersound_add(sound, RZ_PAIN_SOUND_BHIT_FLESH, "zombie_plague/zombie_pain5.wav");
+	rz_playersound_add(sound, RZ_PLAYER_SOUND_PAIN_BHIT_FLESH, "zombie_plague/zombie_pain1.wav");
+	rz_playersound_add(sound, RZ_PLAYER_SOUND_PAIN_BHIT_FLESH, "zombie_plague/zombie_pain2.wav");
+	rz_playersound_add(sound, RZ_PLAYER_SOUND_PAIN_BHIT_FLESH, "zombie_plague/zombie_pain3.wav");
+	rz_playersound_add(sound, RZ_PLAYER_SOUND_PAIN_BHIT_FLESH, "zombie_plague/zombie_pain4.wav");
+	rz_playersound_add(sound, RZ_PLAYER_SOUND_PAIN_BHIT_FLESH, "zombie_plague/zombie_pain5.wav");
 
-	rz_playersound_add(sound, RZ_PAIN_SOUND_DEATH, "zombie_plague/zombie_die1.wav");
-	rz_playersound_add(sound, RZ_PAIN_SOUND_DEATH, "zombie_plague/zombie_die2.wav");
-	rz_playersound_add(sound, RZ_PAIN_SOUND_DEATH, "zombie_plague/zombie_die3.wav");
-	rz_playersound_add(sound, RZ_PAIN_SOUND_DEATH, "zombie_plague/zombie_die4.wav");
-	rz_playersound_add(sound, RZ_PAIN_SOUND_DEATH, "zombie_plague/zombie_die5.wav");
+	rz_playersound_add(sound, RZ_PLAYER_SOUND_DEATH, "zombie_plague/zombie_die1.wav");
+	rz_playersound_add(sound, RZ_PLAYER_SOUND_DEATH, "zombie_plague/zombie_die2.wav");
+	rz_playersound_add(sound, RZ_PLAYER_SOUND_DEATH, "zombie_plague/zombie_die3.wav");
+	rz_playersound_add(sound, RZ_PLAYER_SOUND_DEATH, "zombie_plague/zombie_die4.wav");
+	rz_playersound_add(sound, RZ_PLAYER_SOUND_DEATH, "zombie_plague/zombie_die5.wav");
 
-	rz_knife_sound_add(knife, RZ_KNIFE_SOUND_HIT, "weapons/knife_hit1.wav");
-	rz_knife_sound_add(knife, RZ_KNIFE_SOUND_HIT, "weapons/knife_hit2.wav");
-	rz_knife_sound_add(knife, RZ_KNIFE_SOUND_HIT, "weapons/knife_hit3.wav");
-	rz_knife_sound_add(knife, RZ_KNIFE_SOUND_HIT, "weapons/knife_hit4.wav");
-	rz_knife_sound_add(knife, RZ_KNIFE_SOUND_SLASH, "weapons/knife_slash1.wav");
-	rz_knife_sound_add(knife, RZ_KNIFE_SOUND_SLASH, "weapons/knife_slash2.wav");
-	rz_knife_sound_add(knife, RZ_KNIFE_SOUND_STAB, "weapons/knife_stab.wav");
-	rz_knife_sound_add(knife, RZ_KNIFE_SOUND_HITWALL, "weapons/knife_hitwall1.wav");
+	rz_playersound_add(sound, RZ_PLAYER_SOUND_APPEAR, "zombie_plague/zombie_infec1.wav");
+	rz_playersound_add(sound, RZ_PLAYER_SOUND_APPEAR, "zombie_plague/zombie_infec2.wav");
+	rz_playersound_add(sound, RZ_PLAYER_SOUND_APPEAR, "zombie_plague/zombie_infec3.wav");
+
+	rz_knife_sound_add(knife, RZ_KNIFE_SOUND_DEPLOY, "zombie_plague/zombie_die5.wav");
 
 	rz_nightvision_set(nightVision, RZ_NIGHTVISION_EQUIP, RZ_NVG_EQUIP_APPEND_AND_ENABLE);
 	rz_nightvision_set(nightVision, RZ_NIGHTVISION_COLOR, { 0, 150, 0 });
@@ -63,6 +62,7 @@ public plugin_precache()
 public plugin_init()
 {
 	RegisterHookChain(RG_CBasePlayer_TakeDamage, "@CBasePlayer_TakeDamage_Pre", false);
+	RegisterHookChain(RG_CBasePlayer_Spawn, "@CBasePlayer_Spawn_Post", 1);
 }
 
 @CBasePlayer_TakeDamage_Pre(id, inflictor, attacker, Float:damage, bitsDamageType)
@@ -114,4 +114,57 @@ public plugin_init()
 		return;
 
 	SetHookChainArg(4, ATYPE_FLOAT, 0.0);
+}
+
+@CBasePlayer_Spawn_Post(pPlayer)
+{
+	if (is_user_connected(pPlayer) && rz_player_get(pPlayer, RZ_PLAYER_CLASS) == g_iClass_Zombie)
+	{
+		MakeAppearSound(pPlayer);
+	}
+}
+
+public rz_class_change_post(id, attacker, class)
+{
+	if (class == g_iClass_Zombie)
+	{
+		MakeAppearSound(id);
+	}
+}
+
+public MakeAppearSound(pPlayer)
+{
+	new playerSound = rz_player_get(pPlayer, RZ_PLAYER_SOUND);
+	if (rz_playersound_valid(playerSound))
+	{
+		if (ArraySize(rz_playersound_get(playerSound, RZ_PLAYER_SOUND_SOUNDS_BANK, RZ_PLAYER_SOUND_APPEAR)) > 0)
+		{
+			if (random_num(0, 99) > 80)
+			{
+				new rareSoundsAmount = ArraySize(rz_playersound_get(playerSound, RZ_PLAYER_SOUND_SOUNDS_BANK, RZ_PLAYER_SOUND_APPEAR_RARE));
+				if (rareSoundsAmount > 0)
+				{
+					new Array:sounds = rz_playersound_get(playerSound, RZ_PLAYER_SOUND_SOUNDS_BANK, RZ_PLAYER_SOUND_APPEAR_RARE);
+
+					new sound[RZ_MAX_RESOURCE_PATH];
+					ArrayGetString(sounds, random_num(0, rareSoundsAmount - 1), sound, charsmax(sound));
+
+					rh_emit_sound2(pPlayer, 0, CHAN_VOICE, sound);
+				}
+			}
+			else
+			{
+				new soundsAmount = ArraySize(rz_playersound_get(playerSound, RZ_PLAYER_SOUND_SOUNDS_BANK, RZ_PLAYER_SOUND_APPEAR));
+				if (soundsAmount > 0)
+				{
+					new Array:sounds = rz_playersound_get(playerSound, RZ_PLAYER_SOUND_SOUNDS_BANK, RZ_PLAYER_SOUND_APPEAR);
+
+					new sound[RZ_MAX_RESOURCE_PATH];
+					ArrayGetString(sounds, random_num(0, soundsAmount - 1), sound, charsmax(sound));
+
+					rh_emit_sound2(pPlayer, 0, CHAN_VOICE, sound);
+				}
+			}
+		}
+	}
 }
