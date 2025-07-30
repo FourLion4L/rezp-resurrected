@@ -144,7 +144,14 @@ public rz_class_change_post(id, attacker, class, bool:preSpawn)
 	g_bWeaponsGiven[id] = false;
 	g_iMenuTimer[id] = get_member_game(m_bFreezePeriod) ? 90 : 30;
 
-	MainMenu_Show(id);
+	if (is_user_bot(id))
+	{
+		g_iSlotWeapon[id][0] = random_num(1, 24); // pretend that our bot player chose a primary weapon
+		g_iSlotWeapon[id][1] = random_num(0, 7); // pretend that our bot player chose a secondary weapon
+		@HandleMenu_Main(id, 8); // pretend that our bot player chose to give him new weapons
+	}
+	else
+		MainMenu_Show(id);
 }
 
 MainMenu_Show(id)
